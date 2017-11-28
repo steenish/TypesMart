@@ -11,4 +11,4 @@ The day has a practically infinite number of customers, and the player needs to 
 When the time runs out, the player can finish the last customer before the day ends. Then, a summary of the day is shown, followed by a list of high scores that measure the amount of money the customer scored compared to earlier runs.
 
 Concept "art":
-![TypesMart concept view](https://github.com/zteen/TypesMart/planning/typesmart-concept-view.jpeg)
+![TypesMart concept view](https://github.com/zteen/TypesMart/blob/master/planning/typesmart-concept-view.jpeg)
