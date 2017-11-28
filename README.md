@@ -9,3 +9,6 @@ There is a top-down view of you sitting at the cash register, the belt extending
 The day has a practically infinite number of customers, and the player needs to process as many as possible before the day is over. When the transaction is made, money is received depending on which and how many items the customer bought.
 
 When the time runs out, the player can finish the last customer before the day ends. Then, a summary of the day is shown, followed by a list of high scores that measure the amount of money the customer scored compared to earlier runs.
+
+Concept "art":
+![TypesMart concept view](https://github.com/zteen/TypesMart/planning/typesmart-concept-view.jpeg)
