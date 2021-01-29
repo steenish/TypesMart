@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
 
-    public Item currentItem;
-
     private Dictionary<KeyCode, char> alphabet;
+    private Item currentItem { 
+        get {
+            return Belt.instance.currentItem;
+        }
+    }
 
     void Start() {
         InitializeAlphabet();
@@ -16,12 +19,14 @@ public class InputHandler : MonoBehaviour {
     void OnGUI() {
         Event e = Event.current;
         
-        if (e.isKey
-            && e.type == EventType.KeyDown
-            && e.keyCode != KeyCode.None &&
-            currentItem.SendCharacter(alphabet[e.keyCode])) {
-            
-            Destroy(currentItem.gameObject);
+        if (e.isKey && e.type == EventType.KeyDown && e.keyCode != KeyCode.None) {
+            try {
+                if (currentItem.SendCharacter(alphabet[e.keyCode])) {
+                    Belt.instance.CheckOutItem();
+                }
+            } catch {
+                Debug.Log("strange key pressed");
+            }
         }
     }
 
