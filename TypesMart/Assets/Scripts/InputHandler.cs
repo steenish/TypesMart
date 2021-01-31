@@ -21,7 +21,7 @@ public class InputHandler : MonoBehaviour {
         
         if (e.isKey && e.type == EventType.KeyDown && e.keyCode != KeyCode.None) {
             try {
-                if (currentItem.SendCharacter(alphabet[e.keyCode])) {
+                if (currentItem != null && currentItem.SendCharacter(alphabet[e.keyCode])) {
                     Belt.instance.CheckOutItem();
                 }
             } catch {

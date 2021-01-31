@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class Item : MonoBehaviour {
 	}
 	private TMP_Text text;
 
-	private static Color grayColor = new Color(0.5f, 0.5f, 0.5f);
+	private static Color grayColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
 
 	void Awake() {
 		text = transform.Find("Canvas/Background/Text").GetComponent<TMP_Text>();
@@ -48,5 +49,10 @@ public class Item : MonoBehaviour {
 		}
 
 		text.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+	}
+
+	public void Activate() {
+		transform.Find("Canvas/Background").GetComponent<Image>().color = new Color(144, 255, 0);
+		Debug.Log(transform.Find("Canvas/Background").GetComponent<Image>().color);
 	}
 }

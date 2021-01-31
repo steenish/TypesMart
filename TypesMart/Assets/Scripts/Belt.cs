@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Belt : MonoBehaviour {
 
@@ -11,9 +12,25 @@ public class Belt : MonoBehaviour {
 	public Transform itemContainer;
 	public Transform itemSpawnPoint;
 
-	public Item currentItem { get { return spawnedItems.Peek(); } }
+	public Item currentItem {
+		get {
+			try {
+				return spawnedItems.Peek();
+			} catch {
+				return null;
+			}
+		}
+	}
 
-	private Customer currentCustomer { get { return customerQueue.Peek(); } }
+	private Customer currentCustomer {
+		get {
+			try {
+				return customerQueue.Peek();
+			} catch {
+				return null;
+			}
+		}
+	}
 
 	private Queue<Customer> customerQueue;
 	private Queue<Item> spawnedItems;
@@ -41,12 +58,14 @@ public class Belt : MonoBehaviour {
 	public void CheckOutItem() {
 		try {
 			Item lastItem = spawnedItems.Dequeue();
-			Destroy(lastItem);
+			Destroy(lastItem.gameObject);
 		} catch (Exception e) {
 			Debug.Log(e.StackTrace);
 		}
 
-		if (currentCustomer.NoMoreItems()) {
+		currentItem.Activate();
+
+		if (currentCustomer != null && currentCustomer.NoMoreItems()) {
 			try {
 				Customer lastCustomer = customerQueue.Dequeue();
 				Destroy(lastCustomer.gameObject);
@@ -54,22 +73,6 @@ public class Belt : MonoBehaviour {
 				Debug.Log("customer queue empty");
 			}
 		}
-	}
-
-	public void StopSpawning() {
-		spawning = false;
-	}
-
-	public void StartSpawning() {
-		spawning = true;
-	}
-
-	public void StopMoving() {
-		moving = false;
-	}
-
-	public void StartMoving() {
-		moving = true;
 	}
 
 	private void Update() {
@@ -80,6 +83,8 @@ public class Belt : MonoBehaviour {
 		if (spawning) {
 			SpawnItem();
 		}
+
+		Debug.Log(currentItem.transform.Find("Canvas/Background").GetComponent<Image>().color);
 	}
 
 	private void AddCustomer() {
@@ -103,11 +108,30 @@ public class Belt : MonoBehaviour {
 	}
 
 	private void SpawnItem() {
-		Item spawnedItem = currentCustomer.NextItem();
+		Item spawnedItem = (currentCustomer == null) ? null : currentCustomer.NextItem();
 		if (spawnedItem != null) {
 			spawnedItems.Enqueue(spawnedItem);
 			spawnedItem.gameObject.transform.parent = itemContainer;
 			spawnedItem.gameObject.transform.position = itemSpawnPoint.position;
+
+			StopSpawning();
+			currentItem.Activate();
 		}
+	}
+
+	public void StopSpawning() {
+		spawning = false;
+	}
+
+	public void StartSpawning() {
+		spawning = true;
+	}
+
+	public void StopMoving() {
+		moving = false;
+	}
+
+	public void StartMoving() {
+		moving = true;
 	}
 }
