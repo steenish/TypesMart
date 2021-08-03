@@ -83,8 +83,6 @@ public class Belt : MonoBehaviour {
 		if (spawning) {
 			SpawnItem();
 		}
-
-		Debug.Log(currentItem.transform.Find("Canvas/Background").GetComponent<Image>().color);
 	}
 
 	private void AddCustomer() {

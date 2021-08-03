@@ -52,7 +52,6 @@ public class Item : MonoBehaviour {
 	}
 
 	public void Activate() {
-		transform.Find("Canvas/Background").GetComponent<Image>().color = new Color(144, 255, 0);
-		Debug.Log(transform.Find("Canvas/Background").GetComponent<Image>().color);
+		transform.Find("Canvas/Background").GetComponent<Image>().color = new Color(0.565f, 1.0f, 0.0f);
 	}
 }
